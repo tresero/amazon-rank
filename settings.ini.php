@@ -1,6 +1,6 @@
 ;<?php return; ?>
 [SQL]
-host = 
+host = localhost
 user = 
 password = 
 dbname = 
