@@ -27,3 +27,7 @@ This is part of my personal publishing system and I have a table for products th
 a table called product with those fields, or modify the query.
 
 
+
+---
+Todo:
+Add table to lookup countries
