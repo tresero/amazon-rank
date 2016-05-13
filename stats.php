@@ -6,28 +6,38 @@ class AmazonStats
 {
     // I don't care about india or China
 //  public $region = array("com","es","ca","de","fr","co.uk","com.br","co.jp","it");
-  public $region = array("com","ca","de","co.uk");  
+  public $region = array("com");  
   private $buffer;
   private $amazon;
   public $db;
   private $public_key     = "";
   private $private_key    = "";
-  private $associate_tag  = "something-20";
+  private $associate_tag  = "";
 
 
   public function __construct()
   {
     $this->db = new dB();
   }
+  public function str_startswith($source, $prefix)
+  {
+    return strncmp($source, $prefix, strlen($prefix)) == 0;
+  }
+
   public function getASINData()
   {
-    $result = $this->db->column("select ISBN from product");
+    // need to fix to work with ISBN
+    $result = $this->db->column("select ISBN from product where rank_tracking_p = 1");
     foreach ($result as $value) {
-        if (strlen($value) == 10) {
+        if ($this->str_startswith($value,"B")  == true) {
+           $category = 'KindleStore';
+        } else {
+           $category = 'Books';
+        }
         $single = array(
 		      'Operation' => 'ItemLookup',
 		      'ItemId' =>     trim($value),
-		      'Category' => 'KindleStore',
+		      'Category' => $category,
 		      'ResponseGroup' => 'Medium'
 		      );
            sleep(1);
@@ -36,7 +46,7 @@ class AmazonStats
            for ($cnt=0;$cnt<$numRegions;$cnt++) {
              $this->getResults($this->region[$cnt],$single);
           } // end for
-        } // end if strlen
+//        } // end if strlen
     } // end foreach
 
   }

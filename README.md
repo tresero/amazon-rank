@@ -23,3 +23,7 @@ ALTER TABLE `book_rank`
  ADD PRIMARY KEY (`id`), ADD KEY `date_ix` (`date`) COMMENT 'Date index', ADD KEY `asin_ix` (`asin`), ADD KEY `rank_ix` (`rank`), ADD KEY `region_ix` (`region`);
 ~~~~
 
+This is part of my personal publishing system and I have a table for products that includes the ASIN (called ISBN, for historical reasons) of the book and a flag for tracking. You will need to either make
+a table called product with those fields, or modify the query.
+
+
